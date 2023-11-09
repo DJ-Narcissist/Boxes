@@ -13,19 +13,20 @@ const BoxList = () => {
         const updatedBoxes = boxes.filter((box) => box.id !== id);
         setBoxes(updatedBoxes);
     };
+    const boxComponents = boxes.map(box => (
+        <Box
+        key={box.id}
+        backgroundColor={box.backgroundColor}
+        height={box.height}
+        width={box.width}
+        handleDelete= {handleDelete}
+        />
+    ));
 
     return (
         <div>
             <NewBoxForm addBox={addBox} />
-            {boxes.map(( box, index) =>(
-                <Box
-                key={box.id}
-                backgroundColor={box.backgroundColor}
-                height={box.height}
-                width={box.width}
-                handleDelete= {handleDelete}
-                />
-            ))}
+            {boxComponents}
         </div>
     );
 };

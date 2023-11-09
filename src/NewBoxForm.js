@@ -1,50 +1,56 @@
 import React, { useState } from "react";
+import { v4 as uuid } from 'uuid';
 
 const NewBoxForm = ({ addBox }) => {
-    const [width, setWidth] = useState('');
-    const [height,setHeight] = useState('');
-    const [backgroundColor, setBackgroundColor] = useState('')
+  const [formData, setFormData] = useState({
+    height: "",
+    width: "",
+    backgroundColor: ""
+  });
 
-    const handleSubmit = (e) => {
-        e.preventDefault();
-        const newBox = {
-            width,
-            height,
-            backgroundColor,
-        };
-        addBox(newBox);
-        setWidth('')
-        setHeight('');
-        setBackgroundColor('');
-    };
+  const handleChange = (e) => {
+    const { name, value } = e.target;
+    setFormData({ ...formData, [name]: value });
+  };
 
-    return (
-        <form onSubmit={handleSubmit}>
-            <label>
-                Width:
-                <input
-                type="text"
-                value={width}
-                onChange={(e) => setWidth(e.target.value)}
-                />
-            </label>
-            <label>
-                <input
-                type="text"
-                value={height}
-                onChange={(e) => setHeight(e.target.value)}
-                />
-            </label>
-            <label>
-                <input
-                type="text"
-                value={backgroundColor}
-                onChange={(e) => setBackgroundColor(e.target.value)}
-                />
-            </label>
-            <button type="submit"> ADD BOX </button>
-        </form>
-    );
+  const gatherInput = (e) => {
+    e.preventDefault();
+    addBox({ ...formData, id: uuid() });
+    setFormData({ height: "", width: "", backgroundColor: "" });
+  };
+
+  return (
+    <form onSubmit={gatherInput}>
+      <label htmlFor="width">
+        Width:
+        <input
+          type="text"
+          name="width"
+          value={formData.width}
+          onChange={handleChange}
+        />
+      </label>
+      <label htmlFor="height">
+        Height:
+        <input
+          type="text"
+          name="height"
+          value={formData.height}
+          onChange={handleChange}
+        />
+      </label>
+      <label htmlFor="backgroundColor">
+        Background Color:
+        <input
+          type="text"
+          name="backgroundColor"
+          value={formData.backgroundColor}
+          onChange={handleChange}
+        />
+      </label>
+      <button type="submit">ADD BOX</button>
+    </form>
+  );
 };
 
 export default NewBoxForm;

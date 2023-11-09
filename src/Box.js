@@ -13,22 +13,10 @@ const Box = ({ id, backgroundColor, width, height, handleDelete }) => {
     handleDelete(id);
   };
 
-  const deleteButtonStyle = {
-    position: 'absolute',
-    top: '5px',
-    right: '5px',
-    backgroundColor: 'red',
-    color: 'white',
-    border: 'none',
-    borderRadius: '50%',
-    width: '20px',
-    height: '20px',
-    cursor: 'pointer',
-  };
 
   return (
     <div style={boxStyle}>
-      <button onClick={handleRemove} style={deleteButtonStyle}>
+      <button onClick={handleRemove}>
         X
       </button>
     </div>
